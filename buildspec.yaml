@@ -5,6 +5,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - . demoapp.properties
   build:
     commands:
       - echo Build started on `date`
@@ -14,6 +15,8 @@ phases:
       - echo Building the Docker image...          
       - docker build -t $IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:} .
       - docker tag $IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:} $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}
+      - docker tag $IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:} $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${PROJECT_VERSION}
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${PROJECT_VERSION}

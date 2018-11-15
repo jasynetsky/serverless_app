@@ -31,10 +31,29 @@
 
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.4</version>
+                    <executions>
+                        <execution>
+                            <phase>process-resources</phase>
+                                <configuration>
+                                    <tasks>
+                                        <copy file="${project.build.outputDirectory}/demoapp.properties"
+                                            toFile="${project.build.directory}/demoapp.properties" overwrite="true" />
+                                    </tasks>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                        </execution>
+                    </executions>
             </plugin>
         </plugins>
         <resources>

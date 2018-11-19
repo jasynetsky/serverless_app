@@ -20,7 +20,15 @@ phases:
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${PROJECT_VERSION}
+      - |
+        cat > demoapp-container.json << EOF
+        [
+          {
+            "name": "sample-app",
+            "imageUri": "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}"
+          }
+        ]
 artifacts:
   files:
-    - target/demoapp.properties
+    - target/demoapp-container.json
   name: demoapp-properties

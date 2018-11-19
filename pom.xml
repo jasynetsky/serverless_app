@@ -19,6 +19,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>11.0.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -33,6 +38,17 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
+            <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-resources-plugin</artifactId>
+	            <version>3.0.2</version>
+	            <configuration>
+		            <delimiters>
+			            <delimiter>@</delimiter>
+		            </delimiters>
+		            <useDefaultDelimiters>false</useDefaultDelimiters>
+	            </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -61,8 +77,9 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                     <includes>
-                <include>demoapp.properties</include>
-            </includes>
+                        <include>application.properties</include>
+                        <include>demoapp.properties</include>
+                    </includes>
             </resource>
     </resources>
     </build>

@@ -28,6 +28,7 @@ phases:
             "imageUri": "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}"
           }
         ]
+        EOF
 artifacts:
   files:
     - ./demoapp-container.json

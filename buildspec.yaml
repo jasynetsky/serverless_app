@@ -30,5 +30,5 @@ phases:
         ]
 artifacts:
   files:
-    - target/demoapp-container.json
+    - ./demoapp-container.json
   name: demoapp-properties

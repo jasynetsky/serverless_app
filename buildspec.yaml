@@ -20,3 +20,8 @@ phases:
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${PROJECT_VERSION}
+      - echo "${PROJECT_VERSION}" > damoapp.version
+  artifacts:
+    files:
+      - demoapp.version
+    name: demoapp-version

@@ -31,8 +31,6 @@ commands:
           }
         ]
         EOF
-  post_build:
-    
 artifacts:
   files:
     - ./demoapp-image.json

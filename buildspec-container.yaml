@@ -6,7 +6,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - echo Environment Setup...
-      - . demoapp.properties
+      - . target/demoapp.properties
   build:
     commands:
 commands:
@@ -36,5 +36,5 @@ commands:
 artifacts:
   files:
     - ./demoapp-image.json
-  name: image-properties
+  name: ImageBuildArtifacts
   discard-paths: yes

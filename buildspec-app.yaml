@@ -8,9 +8,5 @@ phases:
       - echo "Build completed at `date`"
 artifacts:
   files:
-    - target/demoapp.jar
-    - target/demoapp.properties
-    - buildspec-container.yaml
-    - Dockerfile
-  name: source-build-artifacts
-  discard-paths: yes
+    - - '**/*'
+  name: AppBuildArtifacts

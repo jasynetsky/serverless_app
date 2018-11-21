@@ -22,12 +22,10 @@ phases:
       - echo Preparing Deploy spec
       - |
         cat > demoapp-image.json << EOF
-        [
           {
             "name": "demoapp",
             "imageUri": "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${TAG}"
           }
-        ]
         EOF
 artifacts:
   files:

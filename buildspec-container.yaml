@@ -10,15 +10,15 @@ phases:
   build:
     commands:
       - echo Preparing Tags
-      - TAG="${CODEBUILD_BUILD_ID##*:}-${INIT_TAG}"
+      - TAG="${PROJECT_VERSION}-${INIT_TAG}"
       - echo Building the Docker image          
       - docker build -t $IMAGE_REPO_NAME:${TAG} .
       - docker tag $IMAGE_REPO_NAME:${TAG} $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${TAG}
-      - docker tag $IMAGE_REPO_NAME:${TAG} $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${PROJECT_VERSION}
+      - docker tag $IMAGE_REPO_NAME:${TAG} $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${TAG}
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${PROJECT_VERSION}
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}
       - |
         cat > demoapp-image.json << EOF
         [

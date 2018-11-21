@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - echo Environment Setup...
+      - . demoapp.properties
+  build:
+    commands:
+commands:
+      - echo Source Version ${CODEBUILD_SOURCE_VERSION}
+      - echo Source Repo URL ${CODEBUILD_SOURCE_REPO_URL}
+      - echo Log Path - ${CODEBUILD_LOG_PATH}
+      - echo Trigger - ${CODEBUILD_WEBHOOK_TRIGGER}
+      - echo Building the Docker image...          
+      - docker build -t $IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:} .
+      - docker tag $IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:} $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}
+      - docker tag $IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:} $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${PROJECT_VERSION}
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${PROJECT_VERSION}
+      - |
+        cat > demoapp-image.json << EOF
+        [
+          {
+            "name": "demoapp",
+            "imageUri": "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${CODEBUILD_BUILD_ID##*:}"
+          }
+        ]
+        EOF
+  post_build:
+    
+artifacts:
+  files:
+    - ./demoapp-image.json
+  name: image-properties
+  discard-paths: yes

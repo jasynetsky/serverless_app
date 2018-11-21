@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Build started at `date`"
+      - mvn -B clean package
+      - echo "Build completed at `date`"
+artifacts:
+  files:
+    - target/demoapp.jar
+    - target/demoapp.properties
+    - buildspec-container.yaml
+    - Dockerfile
+  name: source-build-artifacts
+  discard-paths: yes

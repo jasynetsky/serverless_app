@@ -9,7 +9,6 @@ phases:
       - . target/demoapp.properties
   build:
     commands:
-commands:
       - echo Source Version ${CODEBUILD_SOURCE_VERSION}
       - echo Source Repo URL ${CODEBUILD_SOURCE_REPO_URL}
       - echo Log Path - ${CODEBUILD_LOG_PATH}

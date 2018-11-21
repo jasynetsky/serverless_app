@@ -31,5 +31,5 @@ phases:
 artifacts:
   files:
     - ./demoapp-image.json
-  name: ImageBuildArtifacts
+  name: image-build-artifacts
   discard-paths: yes

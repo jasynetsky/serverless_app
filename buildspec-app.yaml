@@ -8,5 +8,5 @@ phases:
       - echo "Build completed at `date`"
 artifacts:
   files:
-    - - '**/*'
-  name: source-build-artifacts
+    - '**/*'
+  name: AppBuildArtifacts

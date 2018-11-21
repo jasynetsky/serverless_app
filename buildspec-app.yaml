@@ -9,4 +9,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  name: AppBuildArtifacts
+  name: app-build-artifacts

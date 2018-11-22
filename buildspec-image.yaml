@@ -10,8 +10,8 @@ phases:
   build:
     commands:
       - echo Preparing Tags
-      - VERSION_TAG="${PROJECT_VERSION}-${CODEBUILD_BUILD_ID##*:}"
-      - ENV_TAG="${DEFAULT_TAG}-${CODEBUILD_BUILD_ID##*:}"
+      - VERSION_TAG="${CODEBUILD_BUILD_ID##*:}-${PROJECT_VERSION}"
+      - ENV_TAG="${CODEBUILD_BUILD_ID##*:}-{DEFAULT_TAG}""
       - echo Building the Docker image          
       - docker build -t $IMAGE_REPO_NAME:${VERSION_TAG} .
       - docker tag $IMAGE_REPO_NAME:${VERSION_TAG} $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:${VERSION_TAG}

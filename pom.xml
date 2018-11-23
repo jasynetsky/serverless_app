@@ -5,7 +5,11 @@
 
     <groupId>sldemo</groupId>
     <artifactId>demo.app</artifactId>
+<<<<<<< HEAD
     <version>0.1.23</version>
+=======
+    <version>0.1.24</version>
+>>>>>>> a517fc7c513bb51edfecd44cc7ae31ca6a518673
 
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -9,7 +9,7 @@ phases:
       - . target/demoapp.properties
   build:
     commands:
-      - echo "Preparing Tags "${CODEBUILD_BUILD_ID##*:}"
+      - echo "Preparing Tags ${CODEBUILD_BUILD_ID##*:}"
       - VERSION_TAG="${CODEBUILD_BUILD_ID##*:}-${PROJECT_VERSION}"
       - ENV_TAG="${CODEBUILD_BUILD_ID##*:}-${DEFAULT_TAG}"
       - echo "Building the Docker image $IMAGE_REPO_NAME:${VERSION_TAG}"         

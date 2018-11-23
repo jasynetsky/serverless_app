@@ -3,9 +3,12 @@ version: 0.2
 phases:
   build:
     commands:
+      - . target/demoapp.properties
       - echo "Build started at `date`"
       - mvn -B clean package
       - echo "Build completed at `date`"
+      - echo "Commit ID ${CODEBUILD_SOURCE_VERSION}"
+      - echo "Webhook Event ${CODEBUILD_WEBHOOK_TRIGGER}"
 artifacts:
   files:
     - '**/*'
